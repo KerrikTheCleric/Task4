@@ -63,7 +63,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void ExamineList()
         {
             /*
-             * Loop this method untill the user inputs something to exit to main menue.
+             * Loop this method until the user inputs something to exit to the main menu.
              * Create a switch statement with cases '+' and '-'
              * '+': Add the rest of the input to the list (The user could write +Adam and "Adam" would be added to the list)
              * '-': Remove the rest of the input from the list (The user could write -Adam and "Adam" would be removed from the list)
@@ -72,12 +72,36 @@ namespace SkalProj_Datastrukturer_Minne
              * Below you can see some inspirational code to begin working.
             */
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            List<string> examinationList = new List<string>();
 
-            //switch(nav){...}
+            Console.WriteLine("Please input something prepended with '+' to add it to the list and input it again prepended with '-' to remove it again." +
+                "\nTo return to the main menu, input something that doesn't start with either '+'or '-'.");
+
+            char nav = ' ';
+            string value = " ";
+
+            while (true) {
+                string input = Console.ReadLine() ?? " ";
+                if (!String.IsNullOrEmpty(input) && input.Length > 1) { 
+                    nav = input[0];
+                    value = input.Substring(1);
+                }
+
+                switch (nav) {
+                    case '+':
+                        Console.WriteLine("Plus Case!");
+                        examinationList.Add(value);
+                        Console.WriteLine($"Count: {examinationList.Count} - Capacity {examinationList.Capacity}");
+                        break;
+                    case '-':
+                        Console.WriteLine("Minus Case!");
+                        examinationList.Remove(value);
+                        Console.WriteLine($"Count: {examinationList.Count} - Capacity {examinationList.Capacity}");
+                        break;
+                    default:
+                        return;
+                }
+            }
         }
 
         /// <summary>
