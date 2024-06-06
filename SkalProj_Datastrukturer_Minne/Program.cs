@@ -79,7 +79,7 @@ namespace SkalProj_Datastrukturer_Minne {
 
             List<string> examinationList = new List<string>();
 
-            Console.WriteLine("Please input something prepended with '+' to add it to the list and input it again prepended with '-' to remove it again." +
+            Console.WriteLine("Please input something prepended with '+' to add it to the list and input it again prepended with '-' to remove it." +
                 "\nTo return to the main menu, input something that doesn't start with either '+'or '-'.");
 
             char nav = ' ';
@@ -96,16 +96,17 @@ namespace SkalProj_Datastrukturer_Minne {
                     case '+':
                         Console.WriteLine("Plus Case!");
                         examinationList.Add(value);
-                        Console.WriteLine($"Count: {examinationList.Count} - Capacity {examinationList.Capacity}");
+                        PrintStringList(examinationList);
                         break;
                     case '-':
                         Console.WriteLine("Minus Case!");
                         examinationList.Remove(value);
-                        Console.WriteLine($"Count: {examinationList.Count} - Capacity {examinationList.Capacity}");
+                        PrintStringList(examinationList);
                         break;
                     default:
                         return;
                 }
+                nav = ' ';
             }
 
             // 2. Kapaciteten ökar när den överskrids.
@@ -116,14 +117,70 @@ namespace SkalProj_Datastrukturer_Minne {
         }
 
         /// <summary>
+        /// Helper print function for list of strings.
+        /// </summary>
+        /// <param name="l">The list to print out.</param>
+
+        static void PrintStringList(List<string> l) {
+            l.ForEach(item => Console.Write(item + ' '));
+            Console.WriteLine("");
+            Console.WriteLine($"Count: {l.Count} - Capacity {l.Capacity}\n");
+        }
+
+        /// <summary>
         /// Examines the datastructure Queue
         /// </summary>
         static void ExamineQueue() {
             /*
-             * Loop this method untill the user inputs something to exit to main menue.
+             * Loop this method untill the user inputs something to exit to main menu.
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+
+            Queue<string> examinationQueue = new Queue<string>();
+
+            Console.WriteLine("Please input something prepended with '+' to add it to the queue and input something prepended with '-' to remove the oldest item in the queue." +
+                "\nTo return to the main menu, input something that doesn't start with either '+'or '-'.");
+
+            char nav = ' ';
+            string value = " ";
+
+            while (true) {
+                string input = Console.ReadLine() ?? " ";
+                if (!String.IsNullOrEmpty(input) && input.Length > 1) {
+                    nav = input[0];
+                    value = input.Substring(1);
+                }
+
+                switch (nav) {
+                    case '+':
+                        Console.WriteLine("Plus Case!");
+                        examinationQueue.Enqueue(value);
+                        PrintStringQueueStart(examinationQueue);
+                        break;
+                    case '-':
+                        Console.WriteLine("Minus Case!");
+                        if (examinationQueue.Count > 0) { examinationQueue.Dequeue(); }
+                        PrintStringQueueStart(examinationQueue);
+                        break;
+                    default:
+                        return;
+                }
+                nav = ' ';
+            }
+        }
+
+        /// <summary>
+        /// Helper print function for start of a queue of strings.
+        /// </summary>
+        /// <param name="q">The queue to print out the start of.</param>
+
+        static void PrintStringQueueStart(Queue<string> q) {
+            if (q.Count > 0) {
+                Console.WriteLine($"Count: {q.Count} - Oldest Item: {q.Peek()}");
+            } else {
+                Console.WriteLine($"Count: {q.Count} - No Items Available");
+            }
         }
 
         /// <summary>
