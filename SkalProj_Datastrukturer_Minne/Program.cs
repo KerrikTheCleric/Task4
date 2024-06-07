@@ -171,9 +171,9 @@ namespace SkalProj_Datastrukturer_Minne {
         }
 
         /// <summary>
-        /// Helper print function for start of a queue of strings.
+        /// Helper print function for the start of a queue of strings and its item count.
         /// </summary>
-        /// <param name="q">The queue to print out the start of.</param>
+        /// <param name="q">The queue to print out data from.</param>
 
         static void PrintStringQueueStart(Queue<string> q) {
             if (q.Count > 0) {
@@ -192,6 +192,85 @@ namespace SkalProj_Datastrukturer_Minne {
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+
+            Stack<string> examinationStack = new Stack<string>();
+
+            Console.WriteLine("Please input something prepended with '+' to add it to the stack and input something prepended with" +
+                " '-' to remove the newest item in the stack. In order to get text reversed, input '??'." +
+                "\nTo return to the main menu, input something that doesn't start with either '+', '-' or '?'.");
+
+            char nav = ' ';
+            string value = " ";
+
+            while (true) {
+                string input = Console.ReadLine() ?? " ";
+                if (!String.IsNullOrEmpty(input) && input.Length > 1) {
+                    nav = input[0];
+                    value = input.Substring(1);
+                }
+
+                switch (nav) {
+                    case '+':
+                        Console.WriteLine("Plus Case!");
+                        examinationStack.Push(value);
+                        PrintStringStackTop(examinationStack);
+                        break;
+                    case '-':
+                        Console.WriteLine("Minus Case!");
+                        if (examinationStack.Count > 0) { examinationStack.Pop(); }
+                        PrintStringStackTop(examinationStack);
+                        break;
+                    case '?':
+                        /// 2.
+                        ReverseText();
+                        break;
+                    default:
+                        return;
+                }
+                nav = ' ';
+            }
+
+            /// 1. En stack fungerar som en bakvänd kö, så personen längst "bak" skulle få betala först.
+        }
+
+        /// <summary>
+        /// Helper print function for the top of a stack of strings and its item count.
+        /// </summary>
+        /// <param name="s">The stack to print data from.</param>
+
+        static void PrintStringStackTop(Stack<string> s) {
+            if (s.Count > 0) {
+                Console.WriteLine($"Count: {s.Count} - Newest Item: {s.Peek()}");
+            } else {
+                Console.WriteLine($"Count: {s.Count} - No Items Available");
+            }
+        }
+
+        /// <summary>
+        /// Asks the user to input the astring ot reverse and then does just that with the help of a stack.
+        /// </summary>
+
+        static void ReverseText() {
+
+            Console.WriteLine("Please input some text to reverse.");
+
+            Stack<char> reversalStack = new Stack<char>();
+            string inputString = Console.ReadLine() ?? " ";
+
+            if (!String.IsNullOrEmpty(inputString)) {
+
+                foreach (char c in inputString) {
+                    reversalStack.Push(c);
+                }
+
+                Console.Write("Reversed text: ");
+                while (reversalStack.Count > 0) {
+                    Console.Write(reversalStack.Pop());
+                }
+                Console.WriteLine("");
+            } else {
+                Console.WriteLine("No valid text provided.");
+            }
         }
 
         static void CheckParanthesis() {
