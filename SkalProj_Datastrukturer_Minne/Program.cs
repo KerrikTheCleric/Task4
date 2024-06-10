@@ -47,7 +47,7 @@ namespace SkalProj_Datastrukturer_Minne {
                         ExamineStack();
                         break;
                     case '4':
-                        CheckParanthesis();
+                        CheckParenthesis();
                         break;
                     /*
                      * Extend the menu to include the recursive 
@@ -273,13 +273,65 @@ namespace SkalProj_Datastrukturer_Minne {
             }
         }
 
-        static void CheckParanthesis() {
+        /// <summary>
+        /// Asks the user for a string of text to check for valid usage of parentheses, i.e a string where each bracket is paired up with its sibling correctly.
+        /// "[({})]" is valid whereas "[({})]]"isn't.
+        /// </summary>
+
+        static void CheckParenthesis() {
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+            Stack<char> bracketStack = new Stack<char>();
+            Console.WriteLine("Please input some text containing brackets to see if it's formatted correctly.");
+            string inputString = Console.ReadLine() ?? "";
+
+            if (inputString.Equals("")) {
+                Console.WriteLine("No text provided. Returning to main menu.\n");
+                return;
+            }
+
+            foreach (char c in inputString) {
+                if (c == '{' || c == '(' || c == '[') {
+                    bracketStack.Push(c);
+                } else if (c == '}' || c == ')' || c == ']') {
+                    if (bracketStack.Count == 0) {
+                        Console.WriteLine($"{inputString} is not correctly formatted!\n");
+                        return;
+                    } else if (BracketsMatch(bracketStack.Peek(), c)) {
+                        bracketStack.Pop();
+                    }
+                }
+            }
+
+            if (bracketStack.Count == 0) {
+                Console.WriteLine($"{inputString} is correctly formatted.\n");
+            } else {
+                Console.WriteLine($"{inputString} is not correctly formatted!\n");
+            }
+        }
+
+        /// <summary>
+        /// Checks if two brackets match.
+        /// </summary>
+        /// <param name="leftBracket">A left bracket like '{', '(' or '['.</param>
+        /// <param name="rightBracket">A right bracket like '}', ')' or ']'.</param>
+        /// <returns>True if the brackets match, false if they don't.</returns>
+
+        static bool BracketsMatch(char leftBracket, char rightBracket) {
+            switch (leftBracket) {
+                case '{':
+                    if (rightBracket == '}') { return true; } else { return false; }
+                case '(':
+                    if (rightBracket == ')') { return true; } else { return false; }
+                case '[':
+                    if (rightBracket == ']') { return true; } else { return false; }
+                default:
+                    return false;
+            }
         }
 
     }
