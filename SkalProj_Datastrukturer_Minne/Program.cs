@@ -3,7 +3,7 @@
 namespace SkalProj_Datastrukturer_Minne {
     class Program {
         /// <summary>
-        /// The main method, vill handle the menus for the program
+        /// The main method, will handle the menu for the program.
         /// </summary>
         /// <param name="args"></param>
         static void Main() {
@@ -111,7 +111,7 @@ namespace SkalProj_Datastrukturer_Minne {
 
             // 2. Kapaciteten ökar när den överskrids.
             // 3. Den dubbleras.
-            // 4. Jag gissar att det är för att att en minnesallokering kostar så många resurser att det inte är värt att gör varje gång.
+            // 4. Jag gissar att det är för att att en minnesallokering kostar så många resurser att det inte är värt att göra varje gång.
             // 5. Nej.
             // 6. När man vet exakt hur många element som max behöver lagras, t.ex en samling med namn för en meny som bara kan visa 15 namn som mest.
         }
@@ -247,7 +247,7 @@ namespace SkalProj_Datastrukturer_Minne {
         }
 
         /// <summary>
-        /// Asks the user to input the astring ot reverse and then does just that with the help of a stack.
+        /// Asks the user to input the string to reverse and then does just that with the help of a stack and prints out the result.
         /// </summary>
 
         static void ReverseText() {
